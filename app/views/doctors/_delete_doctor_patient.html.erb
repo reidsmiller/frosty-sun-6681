@@ -1,0 +1,4 @@
+<%= form_with model: doctor_patient, url: doctor_patient_path(doctor_patient), method: :delete, local: true do |f| %>
+  <%= f.hidden_field :doctor_id, value: doctor_id %>
+  <%= f.submit "Remove Patient" %>
+<% end %>
