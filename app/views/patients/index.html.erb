@@ -1,0 +1,8 @@
+<h1>Patient Index Page</h1>
+<br>
+<h3>Adult Patients:</h3>
+<ul>
+  <%= @adult_patients.each do |patient| %>
+    <li><%= patient.name %></li>
+  <% end %>
+</ul>

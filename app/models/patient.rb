@@ -6,4 +6,8 @@ class Patient < ApplicationRecord
   def find_doctor_patient(doctor)
     doctor_patients.find_by(doctor_id: doctor.id)
   end
+
+  def self.all_adults_by_name
+    where('age >= ?', 18).order(name: :asc)
+  end
 end
