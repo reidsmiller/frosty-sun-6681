@@ -5,6 +5,8 @@ class CreateDoctors < ActiveRecord::Migration[5.2]
       t.string :name
       t.string :specialty
       t.string :university
+
+      t.timestamps
     end
   end
 end
