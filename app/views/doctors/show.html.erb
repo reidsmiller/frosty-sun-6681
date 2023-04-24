@@ -1,0 +1,12 @@
+<h1><%= @doctor.name %></h1>
+<ul>
+  <li>Speciality: <%= @doctor.specialty %></li>
+  <li>University Attended: <%= @doctor.university %></li>
+  <li>Employed At: <%= @doctor.hospital_name %></li>
+</ul>
+<h3>Patients:</h3>
+<ul>
+  <% @doctor.find_patients.each do |patient| %>
+    <li><%= patient.name %></li>
+  <% end %>
+</ul>
