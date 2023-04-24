@@ -41,4 +41,39 @@ RSpec.describe Doctor do
       end
     end
   end
+
+  describe 'class methods' do
+    before(:each) do
+      @hospital1 = Hospital.create!(name: 'Grey Sloan Memorial Hospital')
+      @hospital2 = Hospital.create!(name: 'Seaside Health & Wellness Center')
+      @doctor1 = @hospital1.doctors.create!(name: 'Meredith Grey', specialty: 'General Surgery', university: 'Harvard University')
+      @doctor2 = @hospital1.doctors.create!(name: 'Alex Karev', specialty: 'Pediatric Surgery', university: 'Johns Hopkins University')
+      @doctor3 = @hospital2.doctors.create!(name: 'Miranda Bailey', specialty: 'General Surgery', university: 'Stanford University')
+      @doctor4 = @hospital1.doctors.create!(name: 'Derek McDreamy Shepherd', specialty: 'Attending Surgeon', university: 'University of Pennsylvania')
+      @patient1 = Patient.create!(name: 'Katie Bryce', age: 24)
+      @patient2 = Patient.create!(name: 'Denny Duquette', age: 39)
+      @patient3 = Patient.create!(name: 'Rebecca Pope', age: 32)
+      @patient4 = Patient.create!(name: 'Zola Shepherd', age: 2)
+      @patient5 = Patient.create!(name: 'Bunny Midge', age: 24)
+
+      @doctor_patient1 = DoctorPatient.create!(doctor: @doctor1, patient: @patient1)
+      @doctor_patient2 = DoctorPatient.create!(doctor: @doctor1, patient: @patient2)
+      DoctorPatient.create!(doctor: @doctor1, patient: @patient3)
+      DoctorPatient.create!(doctor: @doctor1, patient: @patient4)
+      DoctorPatient.create!(doctor: @doctor4, patient: @patient5)
+      DoctorPatient.create!(doctor: @doctor2, patient: @patient4)
+      DoctorPatient.create!(doctor: @doctor3, patient: @patient1)
+      DoctorPatient.create!(doctor: @doctor3, patient: @patient2)
+      DoctorPatient.create!(doctor: @doctor4, patient: @patient2)
+      DoctorPatient.create!(doctor: @doctor4, patient: @patient3)
+    end
+
+    describe '.order_by_patient_count' do
+      it 'can return doctors ordered by number of patients' do
+        expect(Doctor.order_by_patient_count).to eq([@doctor1, @doctor4, @doctor3, @doctor2])
+        expect(Doctor.order_by_patient_count.first.patient_count).to eq(4)
+        expect(Doctor.order_by_patient_count.last.patient_count).to eq(1)
+      end
+    end
+  end
 end
